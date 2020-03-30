@@ -1,7 +1,106 @@
 ﻿@page "/"
 
-<h1>Hello, world!</h1>
+<style>
+    .diceContainer {
+        margin-top: 128px;
+        width: 980px;
+        border-radius: 25px;
+        border: 1px solid var(--text-color);
+        padding: 15px;
+    }
+    .diceBox {
+        display:flex;
+        flex-direction:row;
+    }
 
-Welcome to your new app.
+    .die {
+        padding: 5px;
+        border: 1px solid var(--text-color);
+        margin:5px;
+        width:50px;
+        height:50px;
+        cursor:pointer;
+        text-align:center;
+    }
 
-<SurveyPrompt Title="How is Blazor working for you?" />
+    .dieLabel {
+        border-bottom:1px solid var(--text-color);
+    }
+</style>
+
+<div class="diceContainer">
+    <h1>Dice Roller</h1>
+
+
+
+    <div class="diceBox">
+        <div class="die" @onclick="(() => AddDie(4))">
+            <div class="">D 4</div>
+        </div>
+        <div class="die" @onclick="(() => AddDie(6))">
+            <div class="">D 6</div>
+        </div>
+        <div class="die" @onclick="(() => AddDie(8))">
+            <div class="">D 8</div>
+        </div>
+        <div class="die" @onclick="(() => AddDie(10))">
+            <div class="">D 10</div>
+        </div>
+        <div class="die" @onclick="(() => AddDie(12))">
+            <div class="">D 12</div>
+        </div>
+        <div class="die" @onclick="(() => AddDie(20))">
+            <div class="">D 20</div>
+        </div>
+    </div>
+
+    <button @onclick="RollDice">Roll Dice</button>
+    <hr />
+    <div class="diceBox">
+        @foreach (var die in dice)
+        {
+            <div @onclick="(() => RemoveDie(die))" class="die">
+                <div class="dieLabel">D @die.Sides</div>
+                <div>@die.Result</div>
+            </div>
+        }
+    </div>
+    <div>
+        Total: @Total
+    </div>
+</div>
+
+@code {
+
+    List<Die> dice = new List<Die>();
+    int Total = 0;
+
+    protected override void OnInitialized()
+    {
+        dice.Add(new Die() { Name = "D20", Sides = 20 });
+        dice.Add(new Die() { Name = "D", Sides = 30 });
+        dice.Add(new Die() { Name = "D", Sides = 100 });
+        dice.Add(new Die() { Name = "D", Sides = 5 });
+    }
+
+    private void RollDice()
+    {
+        Total = 0;
+        dice.ForEach(m =>
+        {
+            Total += m.RollDie();
+            
+        });
+        StateHasChanged();
+    }
+
+    private void AddDie(int sides)
+    {
+        dice.Add(new Die() { Name = "D", Sides = sides });
+    }
+
+    private void RemoveDie(Die die)
+    {
+        dice.Remove(die);
+    }
+}
