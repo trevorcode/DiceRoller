@@ -8,23 +8,25 @@
         border: 1px solid var(--text-color);
         padding: 15px;
     }
+
     .diceBox {
-        display:flex;
-        flex-direction:row;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
     }
 
     .die {
         padding: 5px;
         border: 1px solid var(--text-color);
-        margin:5px;
-        width:50px;
-        height:50px;
-        cursor:pointer;
-        text-align:center;
+        margin: 5px;
+        width: 50px;
+        height: 50px;
+        cursor: pointer;
+        text-align: center;
     }
 
     .dieLabel {
-        border-bottom:1px solid var(--text-color);
+        border-bottom: 1px solid var(--text-color);
     }
 </style>
 
@@ -55,6 +57,7 @@
     </div>
 
     <button @onclick="RollDice">Roll Dice</button>
+    <button @onclick="ClearDice">Clear Dice</button>
     <hr />
     <div class="diceBox">
         @foreach (var die in dice)
@@ -85,22 +88,47 @@
 
     private void RollDice()
     {
-        Total = 0;
         dice.ForEach(m =>
         {
-            Total += m.RollDie();
-            
+            m.RollDie();
         });
+        CalculateDice();
         StateHasChanged();
     }
 
     private void AddDie(int sides)
     {
-        dice.Add(new Die() { Name = "D", Sides = sides });
+        Die newDice = new Die() { Name = "D", Sides = sides };
+        dice.Add(newDice);
+        if (Total > 0)
+        {
+            newDice.RollDie();
+            CalculateDice();
+        }
+
+        StateHasChanged();
     }
 
     private void RemoveDie(Die die)
     {
         dice.Remove(die);
+        CalculateDice();
+    }
+
+    private void ClearDice()
+    {
+        dice = new List<Die>();
+        Total = 0;
+        StateHasChanged();
+    }
+
+    private void CalculateDice()
+    {
+        Total = 0;
+        dice.ForEach(m =>
+        {
+            Total += m.Result.HasValue ? m.Result.Value : 0;
+        });
+        StateHasChanged();
     }
 }
