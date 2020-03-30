@@ -32,7 +32,7 @@
       "WebAssembly.Net.Http.dll": "sha256-DB\/JemvbEQPW2ZZ6fFs\/Wc2g9TydALREiZUcN65BMhU="
     },
     "runtime": {
-      "dotnet.3.2.0-preview3.20168.1.js": "",
+      "dotnet.3.2.0-preview3.20168.1.js": "sha256-274clLanSGrn5tb3h9iFyKyVG0KYG2Um+VHF0kdNzHE=",
       "dotnet.wasm": "sha256-JMG2FGgTy70oSWAVIpQcblmNZtV\/DaEaIZEaROjE7Eo="
     }
   }
