@@ -1,0 +1,44 @@
+/* /Pages/Index.razor.rz.scp.css */
+
+.diceContainer[b-bi1eqgfof6] {
+    border-radius: 25px;
+    border: 1px solid var(--text-color);
+    padding: 15px;
+    max-width:720px;
+    margin: 0 auto;
+    margin-top:50px;
+}
+
+@media (max-width: 720px) {
+    .diceContainer[b-bi1eqgfof6] {
+        margin: 0 1rem;
+        margin-top: 50px;
+    }
+}
+
+
+.diceBox[b-bi1eqgfof6] {
+    margin: 2rem 0;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.die[b-bi1eqgfof6] {
+    padding: 5px;
+    border: 1px solid var(--text-color);
+    margin: 5px;
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+    text-align: center;
+}
+
+.dieLabel[b-bi1eqgfof6] {
+    border-bottom: 1px solid var(--text-color);
+}
+/* /Shared/MainLayout.razor.rz.scp.css */
+.layoutContainer[b-h2c8xgzy81] {
+    background-color: black;
+    height:100%;
+}
